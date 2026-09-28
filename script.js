@@ -58,7 +58,6 @@ function launchPhotoSequence() {
                 // Pick specific standout photos to circle (indexes 0, 2, 5, 7)
                 if (index === 0 || index === 2 || index === 5 || index === 7) {
                     img.classList.add('circling');
-                    // Stagger their orbit starting points slightly so they don't overlap
                     img.style.animationDelay = `${index * -2}s`; 
                 } else {
                     // Softly fade out the remaining photos so the screen isn't cluttered
