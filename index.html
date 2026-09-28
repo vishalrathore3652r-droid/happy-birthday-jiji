@@ -3,31 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday, Sister!</title>
+    <title>Happy Birthday Jiji</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Google Fonts for a cute look -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Pacifico&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <div class="card">
-        <h1>Happy Birthday, Best Sister! 🎉</h1>
-        <p class="subtitle">To the person who knows all my secrets and still loves me.</p>
+        <h1 class="neon-title">Happy Birthday Jiji</h1>
+        <p class="subtitle">To the person who knows all my secrets and still loves me. ❤️</p>
 
-        <!-- Memory Section -->
-        <div class="memories">
-            <h2>Some of My Favorite Things About You:</h2>
-            <ul>
-                <li>✨ You always laugh at my terrible jokes (or pretend to).</li>
-                <li>💖 You're my built-in best friend for life.</li>
-                <li>👑 You totally deserved the crown... even when we fought over the TV remote.</li>
-            </ul>
+        <!-- Large Live Shaking Giftbox -->
+        <div class="gift-container">
+            <div id="giftBox" class="gift-box" onclick="openGift()">🎁</div>
+            <p class="click-hint">Tap the gift box for a surprise!</p>
         </div>
-
-        <!-- Interactive Surprise Button -->
-        <button id="surpriseBtn" onclick="revealSurprise()">Click for a Special Message! 🎁</button>
-        <p id="surpriseMsg" class="hidden">I'm so lucky to have a sister like you. Hope your day is as amazing as you are! Love you tons! ❤️</p>
     </div>
+
+    <!-- Background Song -->
+    <audio id="bgMusic" src="song.mp3" preload="auto"></audio>
+
+    <!-- Overlay Containers for Animations -->
+    <div id="photoOverlay" class="photo-overlay"></div>
+    <div id="flowerOverlay" class="flower-overlay"></div>
 
     <script src="script.js"></script>
 </body>
