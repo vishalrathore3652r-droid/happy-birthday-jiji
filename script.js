@@ -15,46 +15,59 @@ function openGift() {
     const giftBox = document.getElementById('giftBox');
     const bgMusic = document.getElementById('bgMusic');
     
-    // 1. Trigger Pop Effect
+    // 1. Trigger Gift Pop Effect & Play Song
     giftBox.classList.add('pop');
-    
-    // 2. Play Audio Track
     bgMusic.play().catch(e => console.log('Audio playback prevented:', e));
 
-    // 3. Launch Floating Photos across full screen
+    // 2. Launch Photos sequence
     setTimeout(() => {
-        launchFloatingPhotos();
+        launchPhotoSequence();
     }, 300);
 
-    // 4. Trigger Flower Burst after photos settle (~5.5 seconds)
+    // 3. Trigger Flower Burst right when the photos settle/circle (~7.5 seconds)
     setTimeout(() => {
         triggerFlowerBurst();
-    }, 5800);
+    }, 7500);
 }
 
-function launchFloatingPhotos() {
+function launchPhotoSequence() {
     const overlay = document.getElementById('photoOverlay');
     
     photos.forEach((src, index) => {
         setTimeout(() => {
             const img = document.createElement('img');
             img.src = src;
-            img.className = 'floating-photo';
+            img.className = 'floating-photo float-up';
             
-            // Random horizontal positioning & subtle rotation
-            const randomX = Math.random() * 75 + 5; // 5% to 80% left
-            const randomRotation = (Math.random() - 0.5) * 40; // -20deg to 20deg
-            
+            // Random horizontal start position
+            const randomX = Math.random() * 60 + 15; 
             img.style.left = `${randomX}vw`;
-            img.style.transform = `rotate(${randomRotation}deg)`;
             
             overlay.appendChild(img);
 
-            // Clean up DOM after animation completes
+            // PHASE 2: After 5 seconds, make them drop down smoothly
             setTimeout(() => {
-                img.remove();
-            }, 6000);
-        }, index * 600); // Stagger each photo entrance
+                img.classList.remove('float-up');
+                img.classList.add('drop-down');
+            }, 5000);
+
+            // PHASE 3: After dropping down (at 7 seconds), select a few "good ones" to start circling
+            setTimeout(() => {
+                img.classList.remove('drop-down');
+                
+                // Pick specific standout photos to circle (indexes 0, 2, 5, 7)
+                if (index === 0 || index === 2 || index === 5 || index === 7) {
+                    img.classList.add('circling');
+                    // Stagger their orbit starting points slightly so they don't overlap
+                    img.style.animationDelay = `${index * -2}s`; 
+                } else {
+                    // Softly fade out the remaining photos so the screen isn't cluttered
+                    img.style.transition = 'opacity 1s ease';
+                    img.style.opacity = '0.3';
+                }
+            }, 7000);
+
+        }, index * 400); // Stagger each photo's entrance
     });
 }
 
@@ -69,7 +82,7 @@ function triggerFlowerBurst() {
             flower.innerText = flowerEmojis[Math.floor(Math.random() * flowerEmojis.length)];
             
             const randomX = Math.random() * 100;
-            const randomSize = Math.random() * 20 + 24; // 24px - 44px
+            const randomSize = Math.random() * 20 + 24; 
             
             flower.style.left = `${randomX}vw`;
             flower.style.fontSize = `${randomSize}px`;
@@ -79,6 +92,6 @@ function triggerFlowerBurst() {
             setTimeout(() => {
                 flower.remove();
             }, 4000);
-        }, i * 60); // Rapid succession burst
+        }, i * 60);
     }
 }
